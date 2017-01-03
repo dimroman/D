@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="application.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="input.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="vertex_buffer.cpp">
+      <Filter>buffers\vertex_buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="index_buffer.cpp">
+      <Filter>buffers\index_buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="constant_buffer.cpp">
+      <Filter>buffers\constant_buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="assets.h" />
+    <ClCompile Include="graphics.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_initialize.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="shadow_map.cpp">
+      <Filter>shadow_map</Filter>
+    </ClCompile>
+    <ClCompile Include="sampler.cpp">
+      <Filter>sampler</Filter>
+    </ClCompile>
+    <ClCompile Include="texture2d.cpp">
+      <Filter>texture</Filter>
+    </ClCompile>
+    <ClCompile Include="buffer.cpp">
+      <Filter>buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="g_buffer.cpp">
+      <Filter>g_buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="math.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="world_camera.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="application.h" />
+    <ClInclude Include="d3dx12.h" />
+    <ClInclude Include="helper_functions.h" />
+    <ClInclude Include="options.h">
+      <Filter>options</Filter>
+    </ClInclude>
+    <ClInclude Include="StepTimer.h" />
+    <ClInclude Include="input.h">
+      <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="vertex_buffer.h">
+      <Filter>buffers\vertex_buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="index_buffer.h">
+      <Filter>buffers\index_buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="constant_buffer.h">
+      <Filter>buffers\constant_buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow_map.h">
+      <Filter>shadow_map</Filter>
+    </ClInclude>
+    <ClInclude Include="sampler.h">
+      <Filter>sampler</Filter>
+    </ClInclude>
+    <ClInclude Include="texture2d.h">
+      <Filter>texture</Filter>
+    </ClInclude>
+    <ClInclude Include="buffer.h">
+      <Filter>buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="defines.h" />
+    <ClInclude Include="g_buffer.h">
+      <Filter>g_buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="math.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="world_camera.h">
+      <Filter>camera</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="options">
+      <UniqueIdentifier>{9816b3f5-99a3-411a-bf8b-41896f9f29bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{bcc17302-e48a-4504-a0bc-4c3dd970e550}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="texture">
+      <UniqueIdentifier>{51516101-da31-40d8-ae88-552a14ec6544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics">
+      <UniqueIdentifier>{42330438-77df-4d1d-9e17-beb0b3646a85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shadow_map">
+      <UniqueIdentifier>{15259e29-0c90-4d93-acec-c96d48c3d211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sampler">
+      <UniqueIdentifier>{749e8606-87cb-4e89-be04-7afbe727d8ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="buffers">
+      <UniqueIdentifier>{858a6587-a9b9-4004-a004-5c283d84713c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="buffers\constant_buffer">
+      <UniqueIdentifier>{fe40eba7-db6e-4be7-9a8b-631e646be3c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="buffers\index_buffer">
+      <UniqueIdentifier>{10004d82-3ab3-48ec-882a-4d66f50cfc93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="buffers\vertex_buffer">
+      <UniqueIdentifier>{b017f078-9397-45fe-bee9-7dc0f6fbaf64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="g_buffer">
+      <UniqueIdentifier>{bdc004cb-b941-4296-9f3e-7c61d2536377}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{f7192ef0-2a11-4ff3-84fa-3c3c0a85a132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="camera">
+      <UniqueIdentifier>{7c6267ad-3b9c-4efd-ab38-af4401765608}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
