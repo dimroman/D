@@ -9,16 +9,32 @@ namespace math {
 inline float to_radians(float const degrees) { return degrees * 3.1415927f / 180.0f; };
 inline float to_degrees(float const radians) { return radians * 180.0f / 3.1415927f; }
 
+struct float2
+{
+	float x;
+	float y;
+};
+
 struct float3
 {
+	float3() = default;
+	float3(float const default_value) { x = y = z = default_value; }
+	float3(float const x, float const y, float const z) : x(x), y(y), z(z) {}
+
 	inline float3 operator/(float const divider) const
 	{
 		assert(divider != 0.0f);
 		return{ x / divider, y / divider, z / divider };
 	}
-	float x;
-	float y;
-	float z;
+
+	union {
+		struct {
+			float x;
+			float y;
+			float z;
+		};
+		float e[3];
+	};
 };
 
 
@@ -92,6 +108,14 @@ struct float4
 
 struct float3x3
 {
+	float3x3() = default;
+	float3x3(float3 const x, float3 const y, float3 const z)
+	{
+		columns[0] = x;
+		columns[1] = y;
+		columns[2] = z;
+	}
+
 	union
 	{
 		struct
@@ -103,7 +127,77 @@ struct float3x3
 		float3 columns[3];
 		float m[3][3]{ 0.f };
 	};
+
+	static inline float3x3 rotation_around_axis_x(float const radians)
+	{
+		float3x3 result;
+		result.m[0][0] = 1.0f;
+		result.m[1][1] = (float)cos(radians);
+		result.m[1][2] = (float)sin(radians);
+		result.m[2][1] = -(float)sin(radians);
+		result.m[2][2] = (float)cos(radians);
+		return result;
+	}
+
+	static inline float3x3 rotation_around_axis_y(float const radians)
+	{
+		float3x3 result;
+		result.m[0][0] = (float)cos(radians);
+		result.m[0][2] = -(float)sin(radians);
+		result.m[2][0] = (float)sin(radians);
+		result.m[1][1] = 1.0f;
+		result.m[2][2] = (float)cos(radians);
+		return result;
+	}
+
+	static inline float3x3 rotation_around_axis_z(float const radians)
+	{
+		float3x3 result;
+		result.m[0][0] = (float)cos(radians);
+		result.m[0][1] = (float)sin(radians);
+		result.m[1][0] = -(float)sin(radians);
+		result.m[1][1] = (float)cos(radians);
+		result.m[2][2] = 1.0f;
+		return result;
+	}
+
+	static inline float3x3 rotation(float3 const axis, float const radians)
+	{
+		float const c = (float)cos(radians);
+		float const s = (float)sin(radians);
+		float const x = axis.x;
+		float const y = axis.y;
+		float const z = axis.z;
+
+		return float3x3{
+			{ c + (1-c)*x*x, (1-c)*x*y - s*z, (1-c)*x*z + s*y },
+			{ (1-c)*x*y + s*z, c + (1-c)*y*y, (1-c)*y*z - s*x },
+			{ (1-c)*x*z - s*y, (1-c)*y*z + s*z, c + (1-c)*z*z }
+		};
+	}
 };
+
+inline float3 operator*(float3 const vector, float3x3 const& matrix)
+{
+	float3 result(0.0f);
+	for (int i = 0; i < 3; ++i)
+	for (int j = 0; j < 3; ++j)
+	{
+		result.e[i] += vector.e[j] * matrix.m[j][i];
+	}
+	return result;
+}
+
+inline float3 operator*(float3x3 const& matrix, float3 const vector)
+{
+	float3 result(0.0f);
+	for (int i = 0; i < 3; ++i)
+	for (int j = 0; j < 3; ++j)
+	{
+		result.e[i] += matrix.m[i][j] * vector.e[j];
+	}
+	return result;
+}
 
 inline float determinant(float3x3 const& m)
 {
@@ -135,6 +229,42 @@ struct float4x4
 		float4 columns[4];
 		float m[4][4]{ 0.f };
 	};
+
+	static inline float4x4 rotation_around_axis_x(float const radians)
+	{
+		float4x4 result;
+		result.m[0][0] = 1.0f;
+		result.m[1][1] = (float)cos(radians);
+		result.m[1][2] = (float)sin(radians);
+		result.m[2][1] = -(float)sin(radians);
+		result.m[2][2] = (float)cos(radians);
+		result.m[3][3] = 1.0f;
+		return result;
+	}
+
+	static inline float4x4 rotation_around_axis_y(float const radians)
+	{
+		float4x4 result;
+		result.m[0][0] = (float)cos(radians);
+		result.m[0][2] = -(float)sin(radians);
+		result.m[2][0] = (float)sin(radians);
+		result.m[1][1] = 1.0f;
+		result.m[2][2] = (float)cos(radians);
+		result.m[3][3] = 1.0f;
+		return result;
+	}
+
+	static inline float4x4 rotation_around_axis_z(float const radians)
+	{
+		float4x4 result;
+		result.m[0][0] = (float)cos(radians);
+		result.m[0][1] = (float)sin(radians);
+		result.m[1][0] = -(float)sin(radians);
+		result.m[1][1] = (float)cos(radians);
+		result.m[2][2] = 1.0f;
+		result.m[3][3] = 1.0f;
+		return result;
+	}
 };
 
 inline float4x4 operator*(float4x4 const& left, float4x4 const& right)
@@ -169,42 +299,6 @@ inline float4x4 identity()
 	result._22 = 1.0f;
 	result._33 = 1.0f;
 	result._44 = 1.0f;
-	return result;
-}
-
-inline float4x4 rotation_around_axis_x(float const radians)
-{
-	float4x4 result;
-	result.m[0][0] = 1.0f;
-	result.m[1][1] = (float)cos(radians);
-	result.m[1][2] = (float)sin(radians);
-	result.m[2][1] = -(float)sin(radians);
-	result.m[2][2] = (float)cos(radians);
-	result.m[3][3] = 1.0f;
-	return result;
-}
-
-inline float4x4 rotation_around_axis_y(float const radians)
-{
-	float4x4 result;
-	result.m[0][0] = (float)cos(radians);
-	result.m[0][2] = -(float)sin(radians);
-	result.m[2][0] = (float)sin(radians);
-	result.m[1][1] = 1.0f;
-	result.m[2][2] = (float)cos(radians);
-	result.m[3][3] = 1.0f;
-	return result;
-}
-
-inline float4x4 rotation_around_axis_z(float const radians)
-{
-	float4x4 result;
-	result.m[0][0] = (float)cos(radians);
-	result.m[0][1] = (float)sin(radians);
-	result.m[1][0] = -(float)sin(radians);
-	result.m[1][1] = (float)cos(radians);
-	result.m[2][2] = 1.0f;
-	result.m[3][3] = 1.0f;
 	return result;
 }
 

@@ -1,7 +1,7 @@
 #include "shadow_map.h"
 #include "graphics.h"
 #include "helper_functions.h"
-#include "world_camera.h"
+#include "camera.h"
 #include "options.h"
 
 extern options g_options;

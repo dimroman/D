@@ -1,11 +1,11 @@
 #include "application.h"
 #include "StepTimer.h"
-#include "world_camera.h"
+#include "camera.h"
 #include "input.h"
 #include <string>
 
 StepTimer g_timer;
-InputState g_input;
+input g_input;
 options g_options;
 world_camera g_camera;
 
@@ -28,52 +28,26 @@ MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 	switch (msg)
 	{
-	case WM_KEYDOWN:
-	{
-		switch (key)
+		case WM_KEYDOWN:
 		{
-		case VK_LEFT:
-			g_input.leftArrowPressed = true;
-			break;
-		case VK_RIGHT:
-			g_input.rightArrowPressed = true;
-			break;
-		case VK_UP:
-			g_input.upArrowPressed = true;
-			break;
-		case VK_DOWN:
-			g_input.downArrowPressed = true;
-			break;
-		case VK_SPACE:
-			g_input.animate = !g_input.animate;
-			break;
+			g_input.on_key_down(key);
+			return 0;
 		}
-		return 0;
-	}
-	case WM_KEYUP:
-	{
-		switch (key)
+		case WM_KEYUP:
 		{
-		case VK_LEFT:
-			g_input.leftArrowPressed = false;
-			break;
-		case VK_RIGHT:
-			g_input.rightArrowPressed = false;
-			break;
-		case VK_UP:
-			g_input.upArrowPressed = false;
-			break;
-		case VK_DOWN:
-			g_input.downArrowPressed = false;
-			break;
+			g_input.on_key_up(key);
+			return 0;
 		}
-		return 0;
-	}
-	case WM_DESTROY:
-	{
-		PostQuitMessage(0);
-		return 0;
-	}
+		case WM_MOUSEMOVE:
+		{
+			g_input.on_mouse_move(wParam, lParam & 0xffff, lParam >> 16 & 0xffff);
+			return 0;
+		}
+		case WM_DESTROY:
+		{
+			PostQuitMessage(0);
+			return 0;
+		}
 	}
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
@@ -127,6 +101,8 @@ int application::run()
 	
 	if (!m_graphics.initialize(m_main_window_handle))
 		return 0;
+
+	g_camera.set_look_position({ 0.0f, 15.0f, 0.0f });
 	
 	MSG msg = { 0 };
 	
@@ -147,10 +123,14 @@ int application::run()
 				g_camera.move_x(-frameChange);
 			if (g_input.rightArrowPressed)
 				g_camera.move_x(frameChange);
-			if (g_input.upArrowPressed)
-				g_camera.move_y(frameChange);
-			if (g_input.downArrowPressed)
-				g_camera.move_y(-frameChange);
+			if (g_input.forward_arrow_pressed)
+				g_camera.move_z(-frameChange);
+			if (g_input.backward_arrow_pressed)
+				g_camera.move_z(frameChange);
+			if (g_input.last_dx != 0.0f)
+				g_camera.rotate_around_up(-g_input.last_dx);
+			if (g_input.last_dy != 0.0f)
+				g_camera.rotate_around_x(g_input.last_dy);
 
 			m_graphics.run(last_frame_time);
 			
@@ -174,6 +154,8 @@ int application::run()
 				frames_count = 0;
 				total_frame_time += 1.0f;
 			}
+
+			g_input.reset();
 		}
 	}
 

@@ -8,7 +8,7 @@
 
 extern world_camera g_camera;
 extern options g_options;
-extern InputState g_input;
+extern input g_input;
 
 graphics* s_graphics = nullptr;
 
@@ -33,11 +33,11 @@ void graphics::update(float const last_frame_time)
 		{
 			float diff = frameChange * pow(-1.0f, i);
 
-			m_lights[i].position = m_lights[i].position * math::rotation_around_axis_y(diff);
+			m_lights[i].position = m_lights[i].position * math::float4x4::rotation_around_axis_y(diff);
 			m_light_cameras[i].set_position(m_lights[i].position.xyz());
 
 			math::float3 const target_position{ 0.0f, 8.0f, 0.0f };
-			m_light_cameras[i].set_target_position(target_position);
+			m_light_cameras[i].set_look_position(target_position);
 			m_lights[i].direction = math::normalize(target_position - m_lights[i].position.xyz());
 			m_lights[i].view_projection = math::transpose(m_light_cameras[i].look_at_right_handed()*m_light_cameras[i].perspective_projection_right_handed());
 		}

@@ -34,7 +34,7 @@
     <ClCompile Include="shadow_map.cpp" />
     <ClCompile Include="texture2d.cpp" />
     <ClCompile Include="vertex_buffer.cpp" />
-    <ClCompile Include="world_camera.cpp" />
+    <ClCompile Include="camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
@@ -54,7 +54,7 @@
     <ClInclude Include="StepTimer.h" />
     <ClInclude Include="texture2d.h" />
     <ClInclude Include="vertex_buffer.h" />
-    <ClInclude Include="world_camera.h" />
+    <ClInclude Include="camera.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{22639976-2934-4012-AE86-BF7B4DF380DB}</ProjectGuid>

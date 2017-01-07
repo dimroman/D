@@ -40,7 +40,7 @@
     <ClCompile Include="math.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="world_camera.cpp">
+    <ClCompile Include="camera.cpp">
       <Filter>camera</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,7 +86,7 @@
     <ClInclude Include="math.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="world_camera.h">
+    <ClInclude Include="camera.h">
       <Filter>camera</Filter>
     </ClInclude>
   </ItemGroup>

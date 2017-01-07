@@ -15,7 +15,7 @@
 #include "sampler.h"
 #include "defines.h"
 #include "math.h"
-#include "world_camera.h"
+#include "camera.h"
 
 using Microsoft::WRL::ComPtr;
 
