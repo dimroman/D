@@ -5,11 +5,6 @@ extern options g_options;
 
 math::float4x4 world_camera::look_at_right_handed()
 {
-	return view_right_handed();
-}
-
-math::float4x4 world_camera::view_right_handed()
-{
 	if (m_normalize_axis)
 	{
 		m_axis_x = math::normalize(m_axis_x);

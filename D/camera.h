@@ -19,8 +19,6 @@ public:
 	void rotate_around_x(float const radians);
 
 private:
-	math::float4x4 view_right_handed();
-private:
 	math::float3 m_position{ 0.0f, 15.0f, -30.0f };
 
 	math::float3 m_axis_x{ 1.0f, 0.0f, 0.0f };
