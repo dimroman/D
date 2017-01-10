@@ -38,6 +38,20 @@ MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			g_input.on_key_up(key);
 			return 0;
 		}
+		case WM_LBUTTONDOWN:
+		case WM_MBUTTONDOWN:
+		case WM_RBUTTONDOWN:
+		{
+			g_input.on_mouse_down(wParam, lParam & 0xffff, lParam >> 16 & 0xffff);
+			return 0;
+		}
+		case WM_LBUTTONUP:
+		case WM_MBUTTONUP:
+		case WM_RBUTTONUP:
+		{
+			g_input.on_mouse_up(wParam, lParam & 0xffff, lParam >> 16 & 0xffff);
+			return 0;
+		}
 		case WM_MOUSEMOVE:
 		{
 			g_input.on_mouse_move(wParam, lParam & 0xffff, lParam >> 16 & 0xffff);

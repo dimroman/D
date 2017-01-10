@@ -241,6 +241,16 @@ void input::on_key_up(UINT8 const key)
 	}
 }
 
+void input::on_mouse_down(WPARAM const button_state, int const x, int const y)
+{
+
+}
+
+void input::on_mouse_up(WPARAM const button_state, int const x, int const y)
+{
+
+}
+
 void input::on_mouse_move(WPARAM const button_state, int const x, int const y)
 {
 	if ((button_state & MK_LBUTTON) != 0)

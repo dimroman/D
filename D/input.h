@@ -8,6 +8,9 @@ struct input
 {
 	void on_key_down(UINT8 const key);
 	void on_key_up(UINT8 const key);
+
+	void on_mouse_down(WPARAM const button_state, int const x, int const y);
+	void on_mouse_up(WPARAM const button_state, int const x, int const y);
 	void on_mouse_move(WPARAM const button_state, int const x, int const y);
 
 	void reset();
